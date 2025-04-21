@@ -3,16 +3,546 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coming Soon</title>
-    <link rel="stylesheet" href="./style.css">
+    <title>My Projects</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        
+        html, body {
+            height: 100%;
+            overflow-x: hidden;
+            background-color: #1c1e26;
+        }
+        .nav-item s {
+            text-decoration: none;
+            position: relative;
+            display: inline-block;
+        }
+        
+        /* Create hand-drawn strikethrough effect */
+        .nav-item s::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            width: 100%;
+            top: 50%;
+            height: 6px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'%3E%3Cpath d='M0,5 c10,-8 20,8 30,0 c10,-6 15,6 25,0 c5,-3 15,6 20,0 c5,-5 15,5 25,0' stroke='%23ffffff' fill='none' stroke-width='5.5' stroke-linecap='round'/%3E%3C/svg%3E");            background-repeat: repeat-x;
+            background-size: contain;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        /* Add animation for a more dynamic effect (optional) */
+        @keyframes wiggle {
+            0% { background-position: 0 0; }
+            100% { background-position: 100px 0; }
+        }
+        
+        /* Uncomment below for animation effect */
+
+        .nav-item s:hover::after {
+            animation: wiggle 10s linear infinite;
+        }
+
+        @font-face {
+            font-family: 'ToThePointRegular';
+            src: url('ToThePointRegular-n9y4.woff2') format('woff2'),
+                 url('ToThePointRegular-n9y4.woff') format('woff'),
+                 url('fonts/ToThePointRegular-n9y4.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+        
+        h1,h2 {
+            font-family: 'ToThePointRegular', Arial, sans-serif;
+            font-size: 48px;
+            text-align: left;
+            /* margin-top: 100px; */
+            color: #ffffff;
+        }
+
+        p {
+          font-family: 'ToThePointRegular', Arial, sans-serif;
+          font-size: 30px;
+        }
+
+         /* Updated modal-description styles to include bullet points */
+         .modal-description {
+            line-height: 1.6;
+            font-size: 16px;
+            font-family: 'ToThePointRegular', Arial, sans-serif;
+        }
+        
+        .modal-description p {
+            font-family: 'ToThePointRegular', Arial, sans-serif;
+            font-size: 35px;
+            margin-bottom: 10px;
+        }
+        
+        .modal-description ul {
+            font-family: 'ToThePointRegular', Arial, sans-serif;
+            font-size: 35px;
+            margin-top: 10px;
+        }
+        
+        .modal-description li {
+            font-family: 'ToThePointRegular', Arial, sans-serif;
+            font-size: 35px;
+            margin-bottom: 6px;
+        }
+        /* Fallback styling in case the font doesn't load */
+        .font-fallback {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            text-align: center;
+            color: #666;
+            margin-top: 20px;
+        }
+        
+        .container {
+            min-height: 100vh;
+            width: 100%;
+            max-width: 100%;
+            padding: 0;
+        }
+        
+        .header {
+            padding: 15px 40px;
+            color: #666;
+            background-color: #1c1e26;
+        }
+        
+        .main-content {
+            background-color: #1c1e26;
+            color: white;
+            padding: 40px;
+            min-height: calc(100vh - 50px);
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+        
+        .nav-item {
+            margin: 0 15px;
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        .nav-number {
+            color: #666;
+            font-size: 12px;
+            margin-right: 5px;
+        }
+        
+        .active {
+            color: #64ffda;
+            
+        }
+        
+        .projects-header {
+            font-size: 64px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        .projects-description {
+            font-size: 33px;
+            max-width: 300px;
+            margin-bottom: 24px;
+            line-height: 1.5;
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            width: 100%;
+        }
+        
+        .project-tile {
+            background-color: #2d2e39;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            height: 220px;
+            position: relative;
+        }
+        
+        .project-tile:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .project-tile img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+        
+        .project-title {
+          font-family: 'ToThePointRegular', Arial, sans-serif;
+            text-align: center;
+            font-size: 30px;
+        }
+        
+        /* Modal popup styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            overflow: auto;
+        }
+        
+        .modal-content {
+            background-color: #2d2e39;
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 12px;
+            width: 80%;
+            max-width: 900px;
+            color: white;
+            position: relative;
+            animation: modalfade 0.3s;
+        }
+        
+        @keyframes modalfade {
+            from {opacity: 0; transform: translateY(-30px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+        
+        .close-btn {
+            position: absolute;
+            right: 25px;
+            top: 20px;
+            font-size: 28px;
+            font-weight: bold;
+            color: #aaa;
+            cursor: pointer;
+        }
+        
+        .close-btn:hover {
+            color: #fff;
+        }
+        
+        .modal-header {
+            font-family: 'ToThePointRegular', Arial, sans-serif;
+            border-bottom: 1px solid #444;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .modal-body {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .modal-image {
+            width: 100%;
+            border-radius: 8px;
+            max-height: 400px;
+            object-fit: cover;
+        }
+        
+        .modal-description {
+            line-height: 1.6;
+            font-size: 16px;
+        }
+        
+        .modal-footer {
+            margin-top: 30px;
+            display: flex;
+            justify-content: flex-end;
+        }
+        
+        .project-btn {
+            font-family: 'ToThePointRegular', Arial, sans-serif;
+            background-color: #9333ea;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 15px;
+            font-size: 30px;
+            transition: background-color 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .project-btn:hover {
+            background-color: #7e22ce;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .projects-header {
+                font-size: 48px;
+            }
+            
+            .navigation {
+                flex-wrap: wrap;
+            }
+            
+            .nav-item {
+                margin: 5px 10px;
+            }
+            
+            .modal-content {
+                width: 95%;
+                padding: 20px;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <div class="graphic fade-in"></div>
-        <div class="text">
-            <div class="coming-soon">Coming Soon</div>
-            <div class="blackhole">Travis Graham</div>
+        <header class="header">
+            <p>Travis Graham</p>
+            <p>Dual BEng & BCs</p>
+        </header>
+        
+        <main class="main-content">
+            <nav class="navigation">
+                <a href="#" class="nav-item"><span class="nav-number"><s>// 01</span> home</s></a>
+                <a href="#" class="nav-item"><span class="nav-number"><s>// 02</span> experience</s></a>
+                <a href="#" class="nav-item active"><span class="nav-number">// 03</span> projects</a>
+                <a href="#" class="nav-item"><span class="nav-number"><s>// 04</span> expertise</s></a>
+                <a href="#" class="nav-item"><span class="nav-number"><s>// 05</span> contact</s></a>
+            </nav>
+            
+            <h1 class="projects-header">My<br>Projects</h1>
+            <p class="projects-description">I build and I do.</p>
+            
+            <div class="projects-grid">
+                <div class="project-tile" data-project="obsidian-rag">
+                    <img src="imgs/obsidian-rag.png" alt="Second Brain RAG Model">
+                    <div class="project-title">Second Brain RAG Model</div>
+                </div>
+                <div class="project-tile" data-project="matcha">
+                    <img src="imgs/verygood.jpg" alt="Meet Very Good Matcha">
+                    <div class="project-title">Meet Very Good Matcha</div>
+                </div>
+                
+                <div class="project-tile" data-project="market">
+                    <img src="imgs/sales-tracker.png" alt="Market Day Sales Tracker">
+                    <div class="project-title">Market Day Sales Tracker</div>
+                </div>
+                
+                <div class="project-tile" data-project="microscope">
+                    <img src="imgs/2.png" alt="Remote Controlled Microscope">
+                    <div class="project-title">Remote Controlled Microscope</div>
+                </div>
+
+                <div class="project-tile" data-project="function">
+                    <img src="imgs/fn-gen-2.jpg" alt="Function Generator">
+                    <div class="project-title">Function Generator</div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+    
+    <!-- Modals for each project -->
+    <div id="obsidian-rag-modal" class="modal">
+      <div class="modal-content">
+          <span class="close-btn">&times;</span>
+          <div class="modal-header">
+              <h2>Obsidian RAG Model</h2>
+          </div>
+          <div class="modal-body">
+              <img class="modal-image" src="imgs/obsidian-rag-3.png" alt="Second Brain Demo">
+              <div class="modal-description">
+                <p>Using LangChain to develop a RAG model for my second brain in Obsidian. Will be transformed into an app available to everyone as a community plugin </p>
+                <p>The project included:</p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                  <li>LangChain retrieval, augmentation and generation</li>
+                  <li>Javascript Obsidian plugin</li>
+                  <li>Currently working on a prototype</li>
+              </ul>
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <a href="https://www.verygoodmatcha.com.au" target="_blank" class="project-btn">Visit Website</a>            
+          </div>
+      </div>
+    </div>
+    <div id="matcha-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <div class="modal-header">
+                <h2>Meet Very Good Matcha</h2>
+            </div>
+            <div class="modal-body">
+                <img class="modal-image" src="imgs/verygood-markets.jpg" alt="Meet Very Good Matcha Project">
+                <div class="modal-description">
+                  <p>Meet Very Good Matcha is a revolutionary approach to enjoying matcha on the go. This project involved creating a direct-to-consumer brand for premium quality matcha sachets.</p>
+                  <p>The project included:</p>
+                  <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>Created and launched two products: ceremonial grade matcha sachets and tins</li>
+                    <li>Retailed 4,000+ units and generated $8K/month via eCommerce and wholesale</li>
+                    <li>Managed market stalls, digital campaigns, and $20K+ in international inventory</li>
+                </ul>
+              </div>
+          </div>
+            <div class="modal-footer">
+              <a href="https://www.verygoodmatcha.com.au" target="_blank" class="project-btn">Visit Website</a>            
+            </div>
         </div>
     </div>
+    
+    <div id="market-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <div class="modal-header">
+                <h2>Market Day Sales Tracker</h2>
+            </div>
+            <div class="modal-body">
+                <img class="modal-image" src="imgs/sales-tracker.png" alt="Market Day Sales Tracker">
+                <div class="modal-description">
+                    <p>The Market Day Sales Tracker is a dedicated app for the University of Queensland O-week market day.</p>
+                    <p>Features include:</p>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                      <li>Full-stack app for real-time sales tracking built in Next.js</li>
+                      <li>Used Stripe API to generate QR-based checkout sessions</li>
+                      <li>Over 200 transactions tracked; requested by other societies</li>
+                  </ul>                  
+                </div>
+            </div>
+            <div class="modal-footer">
+              <a href="https://sales.uqies.com" target="_blank" class="project-btn">Visit Website</a>            
+            </div>
+        </div>
+    </div>
+    
+    <div id="microscope-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <div class="modal-header">
+                <h2>Remote Controlled Microscope</h2>
+            </div>
+            <div class="modal-body">
+                <img class="modal-image" src="" alt="">
+                <div class="modal-description">
+                    <p>An remote controlled microscope on a gantry like setup. Remotely moved in x,y and z directions as well as zoom and rotation abilities.</p>
+                    <p>Key features:</p>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                      <li>Implemented radio-controlled XYZ gantry and zoom control</li>
+                      <li>Used STM32 and nRF with FreeRTOS for real-time operations</li>
+                      <li>Achieved stable multi-threaded coordination with semaphores, mutexes, and queues</li>
+                  </ul>
+                </div>
+            </div>
+            <div class="modal-footer">
+              <a href="https://github.com/Trav04/remote_xyz_microscope" target="_blank" class="project-btn">View Repository</a>            
+            </div>
+        </div>
+    </div>
+
+    <div id="function-modal" class="modal">
+      <div class="modal-content">
+          <span class="close-btn">&times;</span>
+          <div class="modal-header">
+              <h2>Function Generator</h2>
+          </div>
+          <div class="modal-body">
+              <img class="modal-image" src="imgs/fn-gen.jpg" alt="Function Generator Project">
+              <div class="modal-description">
+                  <p>Led a team of engineers to deliver a custom commercially viable prototype for the generation of various functions. Wrote firmware in C using AVR, custom onboard analogue controls, and a Python front-end application.</p>
+                  <p>Technical specifications:</p>
+                  <ul style="margin-left: 20px; margin-top: 10px;">
+                      <li>Frequency range: 1Hz to 1MHz</li>
+                      <li>Multiple waveform outputs: sine, square, triangle, sawtooth</li>
+                      <li>Adjustable amplitude and offset controls</li>
+                      <li>Digital display for precise parameter settings</li>
+                  </ul>
+              </div>
+          </div>
+          <div class="modal-footer">
+            <button class="project-btn" onclick="openPDF()">Open PDF</button>
+        </div>
+        
+        <script>
+            function openPDF() {
+                window.open('files/fn-gen-sch.pdf', '_blank');
+            }
+        </script>
+      </div>
+  </div>
+    
+    <script>
+        // Get all project tiles
+        const projectTiles = document.querySelectorAll('.project-tile');
+        
+        // Get all modals
+        const modals = document.querySelectorAll('.modal');
+        
+        // Get all close buttons
+        const closeBtns = document.querySelectorAll('.close-btn');
+        
+        // Add click event to project tiles
+        projectTiles.forEach(tile => {
+            tile.addEventListener('click', () => {
+                const projectId = tile.getAttribute('data-project');
+                const modal = document.getElementById(`${projectId}-modal`);
+                if (modal) {
+                    modal.style.display = 'block';
+                    document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
+                } else {
+                    console.error(`Modal with ID "${projectId}-modal" not found.`);
+                }
+            });
+        });
+        
+        // Add click event to close buttons
+        closeBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                btn.closest('.modal').style.display = 'none';
+                document.body.style.overflow = 'auto'; // Enable scrolling again
+            });
+        });
+        
+        // Close modal when clicking outside the modal content
+        window.addEventListener('click', (event) => {
+            modals.forEach(modal => {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto'; // Enable scrolling again
+                }
+            });
+        });
+        
+        // Close modal when pressing ESC key
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                modals.forEach(modal => {
+                    if (modal.style.display === 'block') {
+                        modal.style.display = 'none';
+                        document.body.style.overflow = 'auto'; // Enable scrolling again
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 </html>
