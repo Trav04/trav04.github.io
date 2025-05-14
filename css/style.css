@@ -1,0 +1,307 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+html, body {
+    height: 100%;
+    overflow-x: hidden;
+    background-color: #1c1e26;
+}
+.nav-item s {
+    text-decoration: none;
+    position: relative;
+    display: inline-block;
+}
+
+/* Create hand-drawn strikethrough effect */
+.nav-item s::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 100%;
+    top: 50%;
+    height: 6px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'%3E%3Cpath d='M0,5 c10,-8 20,8 30,0 c10,-6 15,6 25,0 c5,-3 15,6 20,0 c5,-5 15,5 25,0' stroke='%23ffffff' fill='none' stroke-width='5.5' stroke-linecap='round'/%3E%3C/svg%3E");            background-repeat: repeat-x;
+    background-size: contain;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Add animation for a more dynamic effect (optional) */
+@keyframes wiggle {
+    0% { background-position: 0 0; }
+    100% { background-position: 100px 0; }
+}
+
+/* Uncomment below for animation effect */
+
+.nav-item s:hover::after {
+    animation: wiggle 10s linear infinite;
+}
+
+@font-face {
+    font-family: 'ToThePointRegular';
+    src: url('ToThePointRegular-n9y4.woff2') format('woff2'),
+          url('ToThePointRegular-n9y4.woff') format('woff'),
+          url('fonts/ToThePointRegular-n9y4.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+h1,h2 {
+    font-family: Arial, sans-serif;
+    font-size: 35px;
+    text-align: left;
+    /* margin-top: 100px; */
+    color: #ffffff;
+}
+
+p {
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+}
+
+  /* Updated modal-description styles to include bullet points */
+  .modal-description {
+    line-height: 1.6;
+    font-size: 15px;
+    font-family: Arial, sans-serif;
+}
+
+.modal-description p {
+    font-family:  Arial, sans-serif;
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+
+.modal-description ul {
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+    margin-top: 10px;
+}
+
+.modal-description li {
+    font-family:Arial, sans-serif;
+    font-size: 15px;
+    margin-bottom: 6px;
+}
+/* Fallback styling in case the font doesn't load */
+.font-fallback {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    text-align: center;
+    color: #666;
+    margin-top: 20px;
+}
+
+.container {
+    min-height: 100vh;
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
+}
+
+.header {
+    padding: 15px 40px;
+    color: #666;
+    background-color: #1c1e26;
+}
+
+.main-content {
+    background-color: #1c1e26;
+    color: white;
+    padding: 40px;
+    min-height: calc(100vh - 50px);
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.navigation {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+
+.nav-item {
+    margin: 0 15px;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.nav-number {
+    color: #666;
+    font-size: 12px;
+    margin-right: 5px;
+}
+
+.active {
+    color: #64ffda;
+    
+}
+
+.projects-header {
+    font-size: 40px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.projects-description {
+    font-size: 20px;
+    max-width: 300px;
+    margin-bottom: 24px;
+    line-height: 1.5;
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+    width: 100%;
+}
+
+.project-tile {
+    background-color: #2d2e39;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    height: 220px;
+    position: relative;
+}
+
+.project-tile:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.project-tile img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.project-title {
+  font-family:  Arial, sans-serif;
+    text-align: center;
+    font-size: 20px;
+}
+
+/* Modal popup styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    overflow: auto;
+}
+
+.modal-content {
+    background-color: #2d2e39;
+    margin: 5% auto;
+    padding: 30px;
+    border-radius: 12px;
+    width: 80%;
+    max-width: 900px;
+    color: white;
+    position: relative;
+    animation: modalfade 0.3s;
+}
+
+@keyframes modalfade {
+    from {opacity: 0; transform: translateY(-30px);}
+    to {opacity: 1; transform: translateY(0);}
+}
+
+.close-btn {
+    position: absolute;
+    right: 25px;
+    top: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #aaa;
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    color: #fff;
+}
+
+.modal-header {
+    font-family: Arial, sans-serif;
+    border-bottom: 1px solid #444;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+.modal-body {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.modal-image {
+    width: 100%;
+    border-radius: 8px;
+    max-height: 400px;
+    object-fit: cover;
+}
+
+.modal-description {
+    line-height: 1.6;
+    font-size: 12px;
+}
+
+.modal-footer {
+    margin-top: 30px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.project-btn {
+    font-family: Arial, sans-serif;
+    background-color: #9333ea;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 15px;
+    font-size: 20px;
+    transition: background-color 0.2s;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.project-btn:hover {
+    background-color: #7e22ce;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .projects-header {
+        font-size: 48px;
+    }
+    
+    .navigation {
+        flex-wrap: wrap;
+    }
+    
+    .nav-item {
+        margin: 5px 10px;
+    }
+    
+    .modal-content {
+        width: 95%;
+        padding: 20px;
+    }
+}
