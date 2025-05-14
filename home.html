@@ -3,55 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Travis Graham - Electrical Engineer & Computer Scientist</title>
-    <link href="css/style-home.css" rel="stylesheet">
+    <title>Travis Graham - Home</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Set full-screen background image */
+        .body-home {
+            background-image: url('imgs/home-background-img.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+        
+        /* Ensure container doesn't have a background that blocks the image */
+        .container, .main-content {
+            background-color: transparent;
+        }
+        
+        /* Add a subtle overlay to improve text readability */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(28, 30, 38, 0.7); /* Semi-transparent overlay */
+            z-index: -1;
+        }
+        
+        /* Additional styles specific to home page */
+        .home-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: calc(100vh - 120px);
+        }
+        
+        .home-header {
+            margin-top: 80px;
+            text-align: center;
+        }
+        
+        .name-heading {
+            font-size: 80px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        .subtitle {
+            font-size: 16px;
+            letter-spacing: 3px;
+            color: #ffffff;
+            font-weight: normal;
+        }
+        
+        .profile-image {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            position: absolute;
+            object-fit: cover;
+            top: 40px;
+            left: 40px;
+        }
+        
+        .social-links {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .social-links h3 {
+            font-size: 16px;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .social-icon {
+            font-size: 24px;
+            color: white;
+            text-decoration: none;
+        }
+        
+        /* Override active state for home */
+        .nav-item.active {
+            color: #64ffda;
+        }
+    </style>
 </head>
-<body>
-    <header>
-        <img src="/api/placeholder/70/70" alt="Profile Picture" class="profile-pic">
-        <nav>
-            <ul>
-                <li><a href="#home">// home<span class="nav-number">01</span></a></li>
-                <li><a href="#experience">// experience<span class="nav-number">02</span></a></li>
-                <li><a href="#projects">// projects<span class="nav-number">03</span></a></li>
-                <li><a href="#expertise">// expertise<span class="nav-number">04</span></a></li>
-                <li><a href="#contact">// contact<span class="nav-number">05</span></a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <main class="main-content">
-        <div class="content-wrapper">
-            <h1 class="name">TRAVIS GRAHAM</h1>
-            <h2 class="title">ELECTRICAL ENGINEER & COMPUTER SCIENTIST</h2>
+<body class="body-home">
+    <div class="container">
+        <main class="main-content">
+            <nav class="navigation">
+                <a href="home.html" class="nav-item active"><span class="nav-number">// 01</span> home</a>
+                <a href="experience.html" class="nav-item"><span class="nav-number"><s>// 02</s></span> experience</a>
+                <a href="projects.html" class="nav-item"><span class="nav-number"><s>// 03</s></span> projects</a>
+                <a href="expertise.html" class="nav-item"><span class="nav-number"><s>// 04</s></span> expertise</a>
+                <a href="contact.html" class="nav-item"><span class="nav-number"><s>// 05</s></span> contact</a>
+            </nav>
             
-            <div class="connect">
-                <p>LET'S CONNECT</p>
-                <div class="social-icons">
-                    <a href="https://www.linkedin.com/in/travis-graham-/" target="_blank" aria-label="LinkedIn">
-                        <!-- SVG LinkedIn icon -->
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-                            <rect x="2" y="9" width="4" height="12"></rect>
-                            <circle cx="4" cy="4" r="2"></circle>
-                        </svg>
-                    </a>
-                    <a href="https://github.com/Trav04" target="_blank" aria-label="GitHub">
-                        <!-- SVG GitHub icon -->
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-                        </svg>
-                    </a>
-                    <a href="mailto:contact@travisgraham.co" target="_blank" aria-label="Email">
-                        <!-- SVG Email icon -->
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                            <polyline points="22,6 12,13 2,6"></polyline>
-                        </svg>
-                    </a>
+            <img src="imgs/pfp.jpg" alt="Travis Graham" class="profile-image">
+            
+            <div class="home-container">
+                <div class="home-header">
+                    <h1 class="name-heading">TRAVIS GRAHAM</h1>
+                    <p class="subtitle">ELECTRICAL ENGINEER & COMPUTER SCIENTIST</p>
+                </div>
+                
+                <div class="social-links">
+                    <h3>LET'S CONNECT</h3>
+                    <div class="social-icons">
+                        <a href="https://linkedin.com" class="social-icon" aria-label="LinkedIn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                                <rect x="2" y="9" width="4" height="12"></rect>
+                                <circle cx="4" cy="4" r="2"></circle>
+                            </svg>
+                        </a>
+                        <a href="https://github.com" class="social-icon" aria-label="GitHub">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                            </svg>
+                        </a>
+                        <a href="mailto:contact@travisgraham.com" class="social-icon" aria-label="Email">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                <polyline points="22,6 12,13 2,6"></polyline>
+                            </svg>
+                        </a>
+                    </div>
                 </div>
             </div>
-        </div>
-    </main>
+        </main>
+    </div>
 </body>
 </html>
