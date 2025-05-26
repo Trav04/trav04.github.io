@@ -55,3 +55,36 @@ document.addEventListener('keydown', (event) => {
 function openPDF() {
     window.open('files/fn-gen-sch.pdf', '_blank');
 }
+
+/* Experience page */
+// Function to toggle experience sections
+function toggleExperience(id) {
+    const content = document.getElementById(id);
+    const allContents = document.querySelectorAll('.experience-content');
+    const parentItem = content.closest('.experience-item');
+    const toggleBtn = parentItem.querySelector('.toggle-btn');
+    
+    // If already active, don't close it
+    if (content.classList.contains('active')) {
+        return;
+    }
+    
+    // Close all sections
+    allContents.forEach(item => {
+        item.classList.remove('active');
+        const itemBtn = item.closest('.experience-item').querySelector('.toggle-btn');
+        itemBtn.textContent = '+';
+    });
+    
+    // Open current section
+    content.classList.add('active');
+    toggleBtn.textContent = '—';
+}
+
+// Initialize with first experience open
+document.addEventListener('DOMContentLoaded', function() {
+    const firstExp = document.getElementById('exp1');
+    firstExp.classList.add('active');
+    const firstToggleBtn = firstExp.closest('.experience-item').querySelector('.toggle-btn');
+    firstToggleBtn.textContent = '—';
+});
