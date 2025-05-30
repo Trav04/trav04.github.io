@@ -29,7 +29,6 @@ html, body {
     z-index: 1;
 }
 
-/* Add animation for a more dynamic effect (optional) */
 @keyframes wiggle {
     0% { background-position: 0 0; }
     100% { background-position: 100px 0; }
@@ -268,7 +267,7 @@ p {
 
 .project-btn {
     font-family: Arial, sans-serif;
-    background-color: #9333ea;
+    background-color: #fcac0f;
     color: white;
     border: none;
     padding: 12px 20px;
@@ -282,7 +281,7 @@ p {
 }
 
 .project-btn:hover {
-    background-color: #7e22ce;
+    background-color: #fcac0f;
 }
 
 /* Responsive adjustments */
@@ -305,12 +304,16 @@ p {
     }
 }
 
-.experience-header {
+.page-header {
     text-align: center;
     font-size: 60px;
     font-weight: 700;
     margin-top: 30px;
     margin-bottom: 50px;
+}
+
+.align-left {
+  text-align: left !important;
 }
 
 .experience-container {
@@ -330,13 +333,13 @@ p {
     justify-content: space-between;
     align-items: center;
     padding: 15px 20px;
-    background-color: #6d28d9;
+    background-color: #ad5d28;
     cursor: pointer;
     transition: background-color 0.3s;
 }
 
 .experience-header-bar:hover {
-    background-color: #7c3aed;
+    background-color: #ad5d28;
 }
 
 .job-title {
