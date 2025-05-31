@@ -95,22 +95,15 @@ p, .font-fallback, .location, .job-period, .card-description, .contact-subtitle 
     background-color: var(--bg-primary);
 }
 
-.iphone-showcase {
-    background: rgba(0,0,0,0.02);
-}
-
-.screen-content {
+.screen-content{
     text-align: center;
     animation: screenGlow 4s ease-in-out infinite alternate;
     overflow: hidden;
     height: 100%;
-}
-
-.screen-content .instagram-media {
     max-width: 100% !important;
     width: 100% !important;
-    margin: 0 !important;
     transform-origin: top center;
+    margin-top: 150px !important;
 }
 
 .screen h3 {

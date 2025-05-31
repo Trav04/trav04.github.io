@@ -58,7 +58,7 @@ function openPDF() {
 }
 
 /* Projects page - iPhone animation */
-// JavaScript for iPhone Content Management
+// iPhone class for content management - can be used to highlight specific projects
 class iPhoneContentManager {
     constructor() {
         this.screenContent = document.querySelector('.screen-content');
@@ -67,53 +67,66 @@ class iPhoneContentManager {
         this.currentContent = 0;
         this.isAutoRotating = true;
         this.rotationInterval = null;
+        this.contentOptions = [];
         
-        // Default content options
-        this.contentOptions = null; // No default options
         this.init();
     }
     
     init() {
         this.setupHoverEffects();
-        this.startAutoRotation();
-    }
-    
-    // Method to update content options
-    setContentOptions(newOptions) {
-        this.contentOptions = newOptions;
-        this.currentContent = 0;
+        
+        // Define project content for iPhone
+        this.contentOptions = [
+            {
+                title: "Second Brain RAG Model",
+                description: "\"LangChain-powered knowledge retrieval system for Obsidian notes\"",
+                image: "imgs/obsidian-rag-2100x100.png"
+            },
+            {
+                title: "Very Good Matcha",
+                description: "Premium matcha brand with 4,000+ units sold and $8K/month revenue",
+                image: "imgs/verygood-100x100.jpg"
+            },
+            {
+                title: "Market Day Tracker",
+                description: "Next.js app with Stripe integration for market day sales tracking",
+                image: "imgs/sales_tracker100x100.png"
+            },
+            {
+                title: "Remote Microscope",
+                description: "STM32-controlled microscope with XYZ gantry and zoom control",
+                image: "imgs/2100x100.png"
+            },
+            {
+                title: "Function Generator",
+                description: "Custom waveform generator with 1Hz-1MHz range and Python UI",
+                image: "imgs/fn-gen-2100x100.jpg"
+            }
+        ];
+        
         this.updateContent();
+        this.startAutoRotation();
+        this.setupProjectHover();
     }
     
-    // Method to add single content item
-    addContent(contentItem) {
-        this.contentOptions.push(contentItem);
-    }
-    
-    // Method to manually set specific content
-    setContent(index) {
-        if (index >= 0 && index < this.contentOptions.length) {
-            this.currentContent = index;
-            this.updateContent();
-        }
-    }
-    
-    // Method to update the displayed content
     updateContent() {
         if (this.screenContent && this.contentOptions.length > 0) {
             const content = this.contentOptions[this.currentContent];
-            this.screenContent.innerHTML = `<h3>${content.title}</h3><p>${content.subtitle}</p>`;
+            this.screenContent.innerHTML = `
+                <img src="${content.image}" alt="${content.title}" style="border-radius: 12px;">
+                <h3>${content.title}</h3>
+                <p>${content.description}</p>
+            `;
         }
     }
+
     
-    // Method to go to next content
     nextContent() {
         this.currentContent = (this.currentContent + 1) % this.contentOptions.length;
         this.updateContent();
     }
     
-    // Method to start auto rotation
-    startAutoRotation(interval = 4000) {
+    startAutoRotation(interval = 3000) {
         this.stopAutoRotation();
         this.isAutoRotating = true;
         this.rotationInterval = setInterval(() => {
@@ -121,7 +134,6 @@ class iPhoneContentManager {
         }, interval);
     }
     
-    // Method to stop auto rotation
     stopAutoRotation() {
         if (this.rotationInterval) {
             clearInterval(this.rotationInterval);
@@ -130,7 +142,6 @@ class iPhoneContentManager {
         this.isAutoRotating = false;
     }
     
-    // Setup hover effects
     setupHoverEffects() {
         if (this.iPhoneContainer && this.iPhone) {
             this.iPhoneContainer.addEventListener('mouseenter', () => {
@@ -143,37 +154,97 @@ class iPhoneContentManager {
         }
     }
     
-    // Method to customize screen background
-    setScreenBackground(gradient) {
-        const screen = document.querySelector('.screen');
-        if (screen) {
-            screen.style.background = gradient;
-        }
+    setupProjectHover() {
+        const projectTiles = document.querySelectorAll('.project-tile');
+        
+        projectTiles.forEach(tile => {
+            tile.addEventListener('mouseenter', () => {
+                const projectId = tile.getAttribute('data-project');
+                const projectIndex = this.getProjectIndex(projectId);
+                
+                if (projectIndex !== -1) {
+                    this.stopAutoRotation();
+                    this.currentContent = projectIndex;
+                    this.updateContent();
+                }
+            });
+            
+            tile.addEventListener('mouseleave', () => {
+                if (!this.isAutoRotating) {
+                    this.startAutoRotation();
+                }
+            });
+        });
     }
     
-    // Method to pause/resume spinning
-    pauseSpin() {
-        if (this.iPhone) {
-            this.iPhone.style.animationPlayState = 'paused';
-        }
-    }
-    
-    resumeSpin() {
-        if (this.iPhone) {
-            this.iPhone.style.animationPlayState = 'running';
-        }
+    getProjectIndex(projectId) {
+        const projectMap = {
+            "obsidian-rag": 0,
+            "matcha": 1,
+            "market": 2,
+            "microscope": 3,
+            "function": 4
+        };
+        return projectMap[projectId] || -1;
     }
 }
 
-// Initialize iPhone Content Manager
+// Modal functionality
 document.addEventListener('DOMContentLoaded', () => {
     const iphoneManager = new iPhoneContentManager();
     
-    const contentOptions = [];  // Display content in the phone, can be text or anything
+    // Initialize modals
+    const modals = document.querySelectorAll('.modal');
+    const closeBtns = document.querySelectorAll('.close-btn');
+    const projectTiles = document.querySelectorAll('.project-tile');
     
-    iphoneManager.setContentOptions(contentOptions);
+    // Open modal when project tile is clicked
+    projectTiles.forEach(tile => {
+        tile.addEventListener('click', () => {
+            const projectId = tile.getAttribute('data-project');
+            const modal = document.getElementById(`${projectId}-modal`);
+            if (modal) {
+                modal.style.display = 'block';
+                document.body.style.overflow = 'hidden'; // Prevent scrolling
+            }
+        });
+    });
+    
+    // Close modal when close button is clicked
+    closeBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const modal = btn.closest('.modal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto'; // Enable scrolling
+        });
+    });
+    
+    // Close modal when clicking outside
+    window.addEventListener('click', (e) => {
+        modals.forEach(modal => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+    });
+    
+    // PDF viewer functionality
+    const pdfViewer = document.getElementById('pdf-viewer');
+    const closePDF = document.getElementById('close-pdf');
+    
+    closePDF.addEventListener('click', () => {
+        pdfViewer.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    });
+    
+    window.openPDF = function() {
+        const pdfFrame = document.getElementById('pdf-frame');
+        pdfFrame.src = 'path/to/function-generator-docs.pdf';
+        pdfViewer.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
 });
-
 /* Experience page */
 // Function to toggle experience sections
 function toggleExperience(id) {
