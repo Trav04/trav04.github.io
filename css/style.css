@@ -56,7 +56,7 @@ li {
     font-size: 80px;
 }
 
-p, .font-fallback, .location, .job-period, .card-description, .card-skills, .contact-subtitle {
+p, .font-fallback, .location, .job-period, .card-description, .contact-subtitle {
     font-size: 14px;
     color: var(--text-secondary);
 }
@@ -125,7 +125,6 @@ p, .font-fallback, .location, .job-period, .card-description, .card-skills, .con
     line-height: 1.4;
 }
 
-/* Restored exact modal description sizes */
 .modal-description {
     line-height: 1.6;
     font-size: 15px;
@@ -146,7 +145,6 @@ p, .font-fallback, .location, .job-period, .card-description, .card-skills, .con
     margin-bottom: 6px;
 }
 
-/* Added back iPhone animations */
 @keyframes spin {
     0% { transform: rotateY(0deg) rotateX(10deg); }
     25% { transform: rotateY(90deg) rotateX(5deg); }
@@ -247,7 +245,7 @@ p, .font-fallback, .location, .job-period, .card-description, .card-skills, .con
     padding: 10px;
 }
 
-/* Modal */
+/* Projects */
 .modal {
     display: none;
     position: fixed;
