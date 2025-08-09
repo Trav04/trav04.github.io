@@ -81,11 +81,11 @@ document.addEventListener('keydown', (event) => {
  * Used specifically for the function generator modal
  */
 function openPDF() {
-    window.open('files/fn-gen-sch.pdf', '_blank');
+    window.open("imgs/fn-gen-sch.pdf", '_blank');
 }
 
 /* ================================================================
-   PROJECT PAGE - iPhone Animation and Content Management
+    PROJECT PAGE - iPhone Animation and Content Management
    ================================================================ */
 
 /**
@@ -320,38 +320,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
-    
-    /**
-     * PDF viewer functionality for embedded PDF viewing
-     * Alternative to opening PDFs in new tabs
-     */
-    const pdfViewer = document.getElementById('pdf-viewer');
-    const closePDF = document.getElementById('close-pdf');
-    
-    // Close PDF viewer when close button is clicked
-    if (closePDF) {
-        closePDF.addEventListener('click', () => {
-            pdfViewer.style.display = 'none';
-            document.body.style.overflow = 'auto';
-        });
-    }
-    
-    /**
-     * Global function to open PDF in embedded viewer
-     * Alternative to the openPDF function that opens in new tab
-     */
-    window.openPDF = function() {
-        const pdfFrame = document.getElementById('pdf-frame');
-        if (pdfFrame && pdfViewer) {
-            pdfFrame.src = 'path/to/function-generator-docs.pdf';
-            pdfViewer.style.display = 'flex';
-            document.body.style.overflow = 'hidden';
-        }
-    }
 });
 
 /* ================================================================
-   EXPERIENCE PAGE - Accordion Functionality
+    EXPERIENCE PAGE - Accordion Functionality
    ================================================================ */
 
 /**
