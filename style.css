@@ -3,7 +3,13 @@ hr {
 }
 
 body {
-  margin: 0 12rem;
+  margin: 0;
+}
+
+@media (min-width: 768px) {
+  body {
+    margin: 0 12rem;
+  }
 }
 
 .grid {
