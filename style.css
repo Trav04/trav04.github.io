@@ -1,0 +1,56 @@
+hr {
+  border: 1px solid #000;
+}
+
+body {
+  margin: 0 12rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 15px;
+  max-width: 1000px;
+}
+
+.card {
+  background-color: #fff;
+  border: 2px solid #000;
+  padding: 10px;
+  text-decoration: none;
+  color: #000;
+  display: block;
+}
+
+.card:hover {
+  background-color: #ffff00;
+}
+
+.thumbnail {
+  width: 100%;
+  height: 297px;
+  background-color: #808080;
+  border: 1px solid #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  margin-bottom: 8px;
+}
+
+.thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* or 'contain' depending on your preference */
+}
+
+.card-title {
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.card-date {
+  font-size: 11px;
+  color: #666;
+}
