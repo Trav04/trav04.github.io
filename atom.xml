@@ -31,4 +31,18 @@ layout: null
             <name>Travis Graham</name>
         </author>
     </entry>
+        <entry>
+        <title>Test publish no summary</title>
+        <link href="https://travisgraham.co/blogs/does_matcha_give_you_energy_01_03_2024.html"/>
+        <id>https://travisgraham.co/blogs/does_matcha_give_you_energy_01_03_2024.html</id>
+        <updated>2024-09-18T00:00:00Z</updated>
+        <content type="html">
+            <![CDATA[
+                {% include_relative blogs/does_matcha_give_you_energy_01_03_2024.html %}
+            ]]>
+        </content>
+        <author>
+            <name>Travis Graham</name>
+        </author>
+    </entry>
 </feed>
