@@ -4,6 +4,7 @@ hr {
 
 body {
   margin: 0;
+  background-color: #dadada;
 }
 
 @media (min-width: 768px) {
@@ -59,4 +60,10 @@ body {
 .card-date {
   font-size: 11px;
   color: #666;
+}
+
+.header {
+    border-bottom: 3px double #000000;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
 }
