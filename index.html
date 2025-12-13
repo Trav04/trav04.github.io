@@ -19,12 +19,15 @@
 
 
     </h2>
-    <form class="subscribe" action="#" method="post">
+    <form id="subscribe-form" class="subscribe" action="#" method="post">
         <marquee behavior="scroll" direction="right" scrollamount="4"><b>Subscribe to my mailing list!</b></marquee>
         <input id="email" name="email" type="email" placeholder="you@email.com" required>
-        <button type="submit">Subscribe</button>
+        <button type="submit" id="submit-btn">Subscribe</button>
     </form>
-        <div class="grid">
+
+    <p id="form-message" style="margin-top: 10px; font-weight: bold;"></p>
+
+    <div class="grid">
         <a href="blogs/does_matcha_give_you_energy_01_03_2024.html" class="card">
             <div class="thumbnail"><img src="img/matcha.png" height="297px"></div>
             <div class="card-title">Does Matcha Give you Energy?</div>
@@ -38,7 +41,7 @@
     </a>
 
     <script>
-        document.getElementById('n8n-form').addEventListener('submit', function(e) {
+        document.getElementById('subscribe-form').addEventListener('submit', function(e) {
             e.preventDefault(); // Stop page reload
 
             const email = document.getElementById('email').value;
