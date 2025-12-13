@@ -24,7 +24,7 @@
         <input id="email" name="email" type="email" placeholder="you@email.com" required>
         <button type="submit">Subscribe</button>
     </form>
-      <div class="grid">
+        <div class="grid">
         <a href="blogs/does_matcha_give_you_energy_01_03_2024.html" class="card">
             <div class="thumbnail"><img src="img/matcha.png" height="297px"></div>
             <div class="card-title">Does Matcha Give you Energy?</div>
@@ -37,4 +37,46 @@
         <img src="img/valid-atom.png" alt="[Valid Atom 1.0]" title="Validate my Atom 1.0 feed" />
     </a>
 
+    <script>
+        document.getElementById('n8n-form').addEventListener('submit', function(e) {
+            e.preventDefault(); // Stop page reload
+
+            const email = document.getElementById('email').value;
+            const messageBox = document.getElementById('form-message');
+            const btn = document.getElementById('submit-btn');
+
+            // UI Loading State
+            btn.textContent = 'Sending...';
+            btn.disabled = true;
+
+            // REPLACE THIS WITH YOUR ACTUAL N8N WEBHOOK URL
+            const webhookUrl = 'https://n8n.travisgraham.co/webhook/5edd1ea6-0130-4229-8240-05479a889267';
+
+            fetch(webhookUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email: email })
+            })
+            .then(response => {
+                if (response.ok) {
+                    messageBox.style.color = 'green';
+                    messageBox.textContent = 'Thanks for subscribing!';
+                    document.getElementById('n8n-form').reset();
+                } else {
+                    throw new Error('Network response was not ok');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                messageBox.style.color = 'red';
+                messageBox.textContent = 'Something went wrong. Please try again.';
+            })
+            .finally(() => {
+                btn.textContent = 'Subscribe';
+                btn.disabled = false;
+            });
+        });
+    </script>
 </body>
