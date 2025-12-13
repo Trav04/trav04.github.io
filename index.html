@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <title>Travis' Internet Archive</title>
+</head>
 <body>
     <div class="header">
     <h1>Travis' Internet Archive</h1>
@@ -66,7 +67,7 @@
                 if (response.ok) {
                     messageBox.style.color = 'green';
                     messageBox.textContent = 'Thanks for subscribing!';
-                    document.getElementById('n8n-form').reset();
+                    document.getElementById('subscribe-form').reset();
                 } else {
                     throw new Error('Network response was not ok');
                 }
