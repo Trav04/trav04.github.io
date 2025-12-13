@@ -76,17 +76,17 @@ body {
 /* 90s flashing medial tridecagram stamp */
 .star-badge{
   position:absolute;
-  top:-25px;
-  left:-25px;
-  width:60px;
-  height:60px;
+  top:-35px;
+  left:-35px;
+  width:80px;
+  height:80px;
   background:#ff0;
   border:2px solid #000;
   display:flex;
   align-items:center;
   justify-content:center;
-  font:bold 6px serif;
-  animation:flash 0.5s infinite,spin 7s linear infinite;
+  font:bold 9px serif;
+  animation:flash 0.7s infinite,spin 10s linear infinite;
   clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);
   z-index:10;
 }
