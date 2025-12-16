@@ -1,85 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Travis' Internet Archive</title>
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <div class="header">
-    <h1>Travis' Internet Archive</h1>
+    <header class="site-header">
+        <h1>Travis' Internet Archive</h1>
+        <nav class="mini-links" aria-label="Profile links">
+            <a href="https://www.linkedin.com/in/travis-graham-/">LinkedIn</a>
+            <span class="dot">·</span>
+            <a href="https://github.com/Trav04">GitHub</a>
+            <span class="dot">·</span>
+            <a href="atom.xml" class="rss-link" title="Subscribe to RSS feed">RSS
+                <img src="img/feed-icon-14x14.png" width="14" height="14" alt="RSS">
+            </a>
+        </nav>
+    </header>
 
-    <p class="subtitle">Last Updated: December 14, 2025</p>
-    </div>
-    <h2> Blog: Life's Adventures with Travis
-        <a href="atom.xml" class="rss-link" title="Subscribe to RSS Feed">
-            <img src="img/feed-icon-14x14.png">
-        </a>
-        <br>
 
-    </h2>
-    <form id="subscribe-form" class="subscribe" action="#" method="post">
-        <div class="star-badge">Subscribe</div>
-        <marquee behavior="scroll" direction="right" scrollamount="4"><b>Subscribe to my mailing list!</b></marquee>
-        <input id="email" name="email" type="email" placeholder="you@email.com" required>
-        <button type="submit" id="submit-btn">Subscribe</button>
-    </form>
 
-    <p id="form-message" style="font-weight: bold;"></p>
+    <main>
+        <section class="intro">
+            <!-- Optional short lede; remove if not needed -->
+            <!-- <p>Notes, links, and experiments. Minimal, fast, and simple.</p> -->
+        </section>
 
-    <div class="grid">
-        <a href="blogs/does_matcha_give_you_energy_01_03_2024.html" class="card">
-            <div class="thumbnail"><img src="img/matcha.png" height="297px"></div>
-            <div class="card-title">Does Matcha Give you Energy?</div>
-            <div class="card-date">March 1 2024</div>
-        </a>
-    </div>
-    <br>
-    <hr>
-    <a href="http://validator.w3.org/feed/check.cgi?url=https%3A//travisgraham.co/atom.xml">
-        <img src="img/valid-atom.png" alt="[Valid Atom 1.0]" title="Validate my Atom 1.0 feed" />
-    </a>
+        <section class="blog">
+            <h2>
+                Life's Adventures
+            </h2>
+            <ul class="post-list">
+                <li>
+                    <a href="blogs/does_matcha_give_you_energy_01_03_2024.html">Does Matcha Give you Energy?</a>
+                    <time datetime="2024-03-01" class="post-date">March 1, 2024</time>
+                </li>
+                <!-- Add more posts here as simple list items -->
+            </ul>
+            
+            <h2>
+                Matcha
+            </h2>
+            <ul class="post-list">
+                <li>
+                    <a href="blogs/does_matcha_give_you_energy_01_03_2024.html">Does Matcha Give you Energy?</a>
+                    <time datetime="2024-03-01" class="post-date">March 1, 2024</time>
+                </li>
+                <!-- Add more posts here as simple list items -->
+            </ul>
+        </section>
+
+        <section class="subscribe">
+            <h3>Subscribe</h3>
+            <form id="subscribe-form" action="#" method="post" novalidate>
+                <label for="email" class="sr-only">Email address</label>
+                <input id="email" name="email" type="email" placeholder="you@email.com" required>
+                <button type="submit" id="submit-btn">Subscribe</button>
+                <p id="form-message" role="status" aria-live="polite"></p>
+            </form>
+            <noscript>
+                <p>JavaScript is required to subscribe. You can also follow via RSS above.</p>
+            </noscript>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <hr>
+        <p>
+            <a href="http://validator.w3.org/feed/check.cgi?url=https%3A//travisgraham.co/atom.xml" class="validator">
+                <img src="img/valid-atom.png" alt="[Valid Atom 1.0]" title="Validate my Atom 1.0 feed" width="88"
+                    height="31">
+            </a>
+        </p>
+        <p class="updated">Last updated: December 14, 2025</p>
+    </footer>
 
     <script>
-        document.getElementById('subscribe-form').addEventListener('submit', function(e) {
-            e.preventDefault(); // Stop page reload
-
-            const email = document.getElementById('email').value;
+        (function () {
+            const form = document.getElementById('subscribe-form');
+            const emailInput = document.getElementById('email');
             const messageBox = document.getElementById('form-message');
             const btn = document.getElementById('submit-btn');
-
-            // UI Loading State
-            btn.textContent = 'Sending...';
-            btn.disabled = true;
-
             const webhookUrl = 'https://n8n.travisgraham.co/webhook/5edd1ea6-0130-4229-8240-05479a889267';
 
-            fetch(webhookUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ email: email })
-            })
-            .then(response => {
-                if (response.ok) {
+            form.addEventListener('submit', async function (e) {
+                e.preventDefault();
+
+                const email = emailInput.value.trim();
+                if (!email) return;
+
+                btn.textContent = 'Sending…';
+                btn.disabled = true;
+                messageBox.textContent = '';
+
+                try {
+                    const res = await fetch(webhookUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email })
+                    });
+
+                    if (!res.ok) throw new Error('Network response was not ok');
+
                     messageBox.style.color = 'green';
                     messageBox.textContent = 'Thanks for subscribing!';
-                    document.getElementById('subscribe-form').reset();
-                } else {
-                    throw new Error('Network response was not ok');
+                    form.reset();
+                } catch (err) {
+                    console.error(err);
+                    messageBox.style.color = 'red';
+                    messageBox.textContent = 'Something went wrong. Please try again.';
+                } finally {
+                    btn.textContent = 'Subscribe';
+                    btn.disabled = false;
                 }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                messageBox.style.color = 'red';
-                messageBox.textContent = 'Something went wrong. Please try again.';
-            })
-            .finally(() => {
-                btn.textContent = 'Subscribe';
-                btn.disabled = false;
             });
-        });
+        }());
     </script>
 </body>
+
+</html>
